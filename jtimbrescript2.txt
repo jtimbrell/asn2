@@ -7,7 +7,7 @@ LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE products FIELDS TERMINA
 
 -- Insert some products into table
 
-INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow pads', 14.25, 120), ('67', 'Skateboard', 99.99, 47);
+INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow pads', 14.25, 120), ('23', 'Jordans', 88.12, 500);
 
 -- Inserting our agents
 
@@ -38,11 +38,11 @@ SELECT * FROM customers;
 
 -- Sideshow likes purchasing 5 update
 
-UPDATE purchases SET amount = 5 WHERE custid = (SELECT custid FROM customers WHERE fname = 'Sideshow' AND lname = 'Bob');
+UPDATE purchases SET qty = 5 WHERE custid = (SELECT custid FROM customers WHERE fname = 'Sideshow' AND lname = 'Bob');
 
 -- Change Regis' customers to Boston Only 
 
-UPDATE customers SET city = 'Boston' WHERE agid = (SELECT agentid FROM agents WHERE firstname = 'Regis' AND lastname ='Philbin');
+UPDATE customers SET cityin = 'Boston' WHERE agid = (SELECT agentid FROM agents WHERE fname = 'Regis' AND lname ='Philbin');
 
 
 -- Showing off data again
