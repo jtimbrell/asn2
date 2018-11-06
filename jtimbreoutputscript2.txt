@@ -1,2 +1,21 @@
-Warning: Using a password on the command line interface can be insecure.
-ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+ERROR 1062 (23000) at line 11: Duplicate entry '66' for key 'PRIMARY'
+--------------
+LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE products FIELDS TERMINATED BY ','
+--------------
+
+--------------
+SELECT * FROM products
+--------------
+
+prodid	descrip	costper	qtyavail
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+69	Apple	2	200
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow pads', 14.25, 120), ('69', 'Apple', 2.00, 200)
+--------------
+
