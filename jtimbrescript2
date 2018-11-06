@@ -2,11 +2,21 @@ USE jtimbreassign2db;
 
 -- Load data from OWL file
 
-LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE products FIELDS TERMINATED BY ',' LINE TERMINATED BY '\n';
+LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE products FIELDS TERMINATED BY ',';
 
 SELECT * FROM products;
 
 -- Add the other data into products
 
 INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow pads', 14.25, 120), ('69', 'Apple', 2.00, 200);
+
+-- Add the agents
+
+INSERT INTO agents (agentid, fname, lname, cityworks, commiss) VALUES ('99', 'Hugh', 'Grant', 'Springfield', 16), ('22', 'Courtney', 'Cox', 'New York', 25), ('66', 'Rosie', 'ODonnell', 'Ottawa', 100), ('33', 'David', 'Letterman', 'Bedrock', 100), ('11', 'Regis', 'Philbin','Boston', 33), ('12', 'Rosie', 'Cox','Ottawa', 50), ('37', 'Jonathan', 'Timbrell', 'Ottawa', 99);
+
+-- Add the customers
+
+INSERT INTO customers (custid, fname, lname, cityin, phoneno, agid) VALUES ('21', 'Homer', 'Simpson', 'Springfield', 686-8956, '99');
+
+
 

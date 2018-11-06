@@ -30,7 +30,7 @@ CREATE TABLE products (prodid VARCHAR(2) NOT NULL, descrip VARCHAR(20), costper 
 
 CREATE TABLE agents (agentid VARCHAR(2) NOT NULL, fname CHAR(30), lname CHAR(30), cityworks CHAR(30), commiss FLOAT, PRIMARY KEY(agentid));
 
-CREATE TABLE customers (custid VARCHAR(2) NOT NULL, fname CHAR(30), lname CHAR(30), cityin CHAR(30), phoneno INT, agid VARCHAR(2), PRIMARY KEY(custid), FOREIGN KEY (agid) REFERENCES agents(agentid));
+CREATE TABLE customers (custid VARCHAR(2) NOT NULL, fname CHAR(30), lname CHAR(30), cityin CHAR(30), phoneno VARCHAR(10), agid VARCHAR(2), PRIMARY KEY(custid), FOREIGN KEY (agid) REFERENCES agents(agentid));
 
 CREATE TABLE purchases (qty INT, produid VARCHAR(2), custid VARCHAR(2), FOREIGN KEY(produid) REFERENCES products(prodid), FOREIGN KEY (custid) REFERENCES customers(custid));
 
