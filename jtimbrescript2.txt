@@ -1,59 +1,53 @@
 USE jtimbreassign2db;
 
--- Load data from OWL file
+-- Loading data 
 
 LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE products FIELDS TERMINATED BY ',';
 
-SELECT * FROM products;
 
--- Add the other data into products
+-- Insert some products into table
 
-INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow pads', 14.25, 120), ('69', 'Apple', 2.00, 200);
+INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow pads', 14.25, 120), ('67', 'Skateboard', 99.99, 47);
 
--- Add the agents
+-- Inserting our agents
 
-INSERT INTO agents (agentid, fname, lname, cityworks, commiss) VALUES ('99', 'Hugh', 'Grant', 'Springfield', 16), ('22', 'Courtney', 'Cox', 'New York', 25), ('66', 'Rosie', 'ODonnell', 'Ottawa', 100), ('33', 'David', 'Letterman', 'Bedrock', 100), ('11', 'Regis', 'Philbin','Boston', 33), ('12', 'Rosie', 'Cox','Ottawa', 50), ('37', 'Jonathan', 'Timbrell', 'Ottawa', 99);
+INSERT INTO agent (agentid, fname, lname, cityworks, commiss) VALUES  ('99', 'Hugh', 'Grant', 'Springfield', 16), ('22', 'Courtney', 'Cox', 'New York', 25),('66', 'Rosie', 'ODonnell', 'Ottawa', 100),('33', 'David', 'Letterman', 'Bedrock', 100), ('11', 'Regis', 'Philbin', 'Boston', 33), ('12', 'Rosie', 'Cox',  'Ottawa', 50), ('73', 'Jonathan', 'Timbrell', 'Ottawa', 99);
 
--- Add the customers
+-- Insert some customers into table
 
-INSERT INTO customers (custid, fname, lname, cityin, phoneno, agid) VALUES ('21', 'Homer', 'Simpson', 'Springfield', '686-8956', '99'), ('31', 'Sideshow', 'Bob', 'Springfield', '686-5555', '66'),('12', 'Monty', 'Burns', 'Springfield', '789-0000', '99'),('15', 'Fred', 'Flintstone', 'Bedrock', '777-2345', '11'),('13', 'Super', 'Man', 'Kypto', '888-1234', '33'),('10', 'Barney', 'Rubble', 'Bedrock', '777-1234', '11'),('14', 'Peter', 'Griffens', 'Providence', '987-4567', '99');
+INSERT INTO customers (custid, fname, lname, cityin, phoneno, agid) VALUES ('21', 'Homer', 'Simpson', 'Springfield', '686-8956', '99'), ('31', 'Sideshow', 'Bob', 'Springfield', '686-5555', '66'), ('12', 'Monty', 'Burns', 'Springfield', '789-0000', '99'), ('15', 'Fred', 'Flintstone', 'Bedrock', '777-2345', '11'), ('13', 'Super', 'Man', 'Kypto', '888-1234', '33'), ('10', 'Barney', 'Rubble', 'Bedrock', '777-1234', '11'), ('14', 'Peter', 'Griffens', 'Providence', '987-4567', '99');
 
+-- Insert some purchases made
 
--- Add purchases to table
+INSERT INTO purchases (custid, produid, qty) VALUES ('21', '99', 20), ('21', '12', 14), ('21', '66', 10), ('31', '99', 1), ('31', '12', 2), ('31', '78', 4), ('31', '66', 2), ('15', '66', 2),('15', '78', 2), ('14', '66', 19);
 
-INSERT INTO purchases (qty, produid, custid) VALUES (20, '99', '21'), (14, '12', '21'), (10, '66', '21'), (1, '99', '31'), (2, '12', '31'), (4, '78', '31'), (2, '66', '31'), (2, '66', '15'), (2, '78', '15'), (19, '66', '14');
+-- Showing all of our new inserts!
 
-
--- Show data from all tables
-
+SELECT * FROM purchases;
+SELECT * FROM customers;
 SELECT * FROM products;
 SELECT * FROM agents;
-SELECT * FROM customers;
-SELECT * FROM purchases;
 
--- Updating some data in our tables
+-- Replacing SM with WW
 
 UPDATE customers SET fname = 'Wonder', lname = 'Woman' WHERE fname = 'Super' AND lname = 'Man';
 
+-- Superman is updated to WW
+
 SELECT * FROM customers;
 
-UPDATE purchases SET qty = 5 WHERE custid = (SELECT custid FROM customers WHERE fname = 'Sideshow' AND lname = 'Bob');
+-- Sideshow likes purchasing 5 update
 
-UPDATE customers SET cityin = 'Boston' WHERE agid = (SELECT agentid FROM agents WHERE fname = 'Regis' AND lname ='Philbin');
+UPDATE purchases SET amount = 5 WHERE custid = (SELECT custid FROM customers WHERE fname = 'Sideshow' AND lname = 'Bob');
 
--- Shows all updated info 
+-- Change Regis' customers to Boston Only 
 
-SELECT * FROM products;
-SELECT * FROM customers;
-SELECT * FROM agents;
+UPDATE customers SET city = 'Boston' WHERE agid = (SELECT agentid FROM agents WHERE firstname = 'Regis' AND lastname ='Philbin');
+
+
+-- Showing off data again
+
 SELECT * FROM purchases;
-
-
-
-
-
-
-
-
-
-
+SELECT * FROM customers;
+SELECT * FROM products;
+SELECT * FROM agents;
