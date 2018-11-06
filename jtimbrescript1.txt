@@ -1,18 +1,19 @@
---FILE 1
+-- FILE 1
+-- Timbrell
 
 SHOW DATABASES;
 
---dropping table if it exists
+-- dropping table if it exists
 
 DROP DATABASE IF EXISTS jtimbreassign2db;
 
---creating the asn2 database for use
+-- creating the asn2 database for use
 
 CREATE DATABASE jtimbreassign2db;
 
 USE jtimbreassign2db;
 
---creating permissions for TA to give me a 200%
+-- creating permissions for TA to give me a 200%
 
 GRANT USAGE ON *.* TO 'ta'@'localhost';
 DROP USER 'ta'@localhost'
