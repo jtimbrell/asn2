@@ -28,7 +28,7 @@ GRANT USAGE ON *.* TO 'ta'@'localhost'
 --------------
 DROP USER 'ta'@localhost';
 CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
-GRANT ALL PRIVILEGES ON jtimbreassign2db;
+GRANT ALL PRIVILEGES ON jtimbreassign2db.* TO 'TA'@'localhost';
 FLUSH PRIVILEGES;
 
 SHOW TABLES; 
