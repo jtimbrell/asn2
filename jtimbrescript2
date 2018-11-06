@@ -1,0 +1,12 @@
+USE jtimbreassign2db;
+
+-- Load data from OWL file
+
+LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE products FIELDS TERMINATED BY ',' LINE TERMINATED BY '\n';
+
+SELECT * FROM products;
+
+-- Add the other data into products
+
+INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow pads', 14.25, 120), ('69', 'Apple', 2.00, 200);
+
