@@ -11,7 +11,7 @@ INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow p
 
 -- Inserting our agents
 
-INSERT INTO agent (agentid, fname, lname, cityworks, commiss) VALUES  ('99', 'Hugh', 'Grant', 'Springfield', 16), ('22', 'Courtney', 'Cox', 'New York', 25),('66', 'Rosie', 'ODonnell', 'Ottawa', 100),('33', 'David', 'Letterman', 'Bedrock', 100), ('11', 'Regis', 'Philbin', 'Boston', 33), ('12', 'Rosie', 'Cox',  'Ottawa', 50), ('73', 'Jonathan', 'Timbrell', 'Ottawa', 99);
+INSERT INTO agents (agentid, fname, lname, cityworks, commiss) VALUES  ('99', 'Hugh', 'Grant', 'Springfield', 16), ('22', 'Courtney', 'Cox', 'New York', 25),('66', 'Rosie', 'ODonnell', 'Ottawa', 100),('33', 'David', 'Letterman', 'Bedrock', 100), ('11', 'Regis', 'Philbin', 'Boston', 33), ('12', 'Rosie', 'Cox',  'Ottawa', 50), ('73', 'Jonathan', 'Timbrell', 'Ottawa', 99);
 
 -- Insert some customers into table
 
