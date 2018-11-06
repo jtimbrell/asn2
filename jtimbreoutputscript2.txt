@@ -1,0 +1,146 @@
+--------------
+LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE products FIELDS TERMINATED BY ','
+--------------
+
+--------------
+INSERT INTO products (prodid, descrip, costper, qtyavail) VALUES ('66', 'Elbow pads', 14.25, 120), ('23', 'Jordans', 88.12, 500)
+--------------
+
+--------------
+INSERT INTO agents (agentid, fname, lname, cityworks, commiss) VALUES  ('99', 'Hugh', 'Grant', 'Springfield', 16), ('22', 'Courtney', 'Cox', 'New York', 25),('66', 'Rosie', 'ODonnell', 'Ottawa', 100),('33', 'David', 'Letterman', 'Bedrock', 100), ('11', 'Regis', 'Philbin', 'Boston', 33), ('12', 'Rosie', 'Cox',  'Ottawa', 50), ('73', 'Jonathan', 'Timbrell', 'Ottawa', 99)
+--------------
+
+--------------
+INSERT INTO customers (custid, fname, lname, cityin, phoneno, agid) VALUES ('21', 'Homer', 'Simpson', 'Springfield', '686-8956', '99'), ('31', 'Sideshow', 'Bob', 'Springfield', '686-5555', '66'), ('12', 'Monty', 'Burns', 'Springfield', '789-0000', '99'), ('15', 'Fred', 'Flintstone', 'Bedrock', '777-2345', '11'), ('13', 'Super', 'Man', 'Kypto', '888-1234', '33'), ('10', 'Barney', 'Rubble', 'Bedrock', '777-1234', '11'), ('14', 'Peter', 'Griffens', 'Providence', '987-4567', '99')
+--------------
+
+--------------
+INSERT INTO purchases (custid, produid, qty) VALUES ('21', '99', 20), ('21', '12', 14), ('21', '66', 10), ('31', '99', 1), ('31', '12', 2), ('31', '78', 4), ('31', '66', 2), ('15', '66', 2),('15', '78', 2), ('14', '66', 19)
+--------------
+
+--------------
+SELECT * FROM purchases
+--------------
+
+qty	produid	custid
+20	99	21
+14	12	21
+10	66	21
+1	99	31
+2	12	31
+4	78	31
+2	66	31
+2	66	15
+2	78	15
+19	66	14
+--------------
+SELECT * FROM customers
+--------------
+
+custid	fname	lname	cityin	phoneno	agid
+10	Barney	Rubble	Bedrock	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Super	Man	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Bedrock	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	66
+--------------
+SELECT * FROM products
+--------------
+
+prodid	descrip	costper	qtyavail
+11	Bike	150	200
+12	Socks	2	100
+23	Jordans	88.12	500
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM agents
+--------------
+
+agentid	fname	lname	cityworks	commiss
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+73	Jonathan	Timbrell	Ottawa	99
+99	Hugh	Grant	Springfield	16
+--------------
+UPDATE customers SET fname = 'Wonder', lname = 'Woman' WHERE fname = 'Super' AND lname = 'Man'
+--------------
+
+--------------
+SELECT * FROM customers
+--------------
+
+custid	fname	lname	cityin	phoneno	agid
+10	Barney	Rubble	Bedrock	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Wonder	Woman	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Bedrock	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	66
+--------------
+UPDATE purchases SET qty = 5 WHERE custid = (SELECT custid FROM customers WHERE fname = 'Sideshow' AND lname = 'Bob')
+--------------
+
+--------------
+UPDATE customers SET cityin = 'Boston' WHERE agid = (SELECT agentid FROM agents WHERE fname = 'Regis' AND lname ='Philbin')
+--------------
+
+--------------
+SELECT * FROM purchases
+--------------
+
+qty	produid	custid
+20	99	21
+14	12	21
+10	66	21
+5	99	31
+5	12	31
+5	78	31
+5	66	31
+2	66	15
+2	78	15
+19	66	14
+--------------
+SELECT * FROM customers
+--------------
+
+custid	fname	lname	cityin	phoneno	agid
+10	Barney	Rubble	Boston	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Wonder	Woman	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Boston	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	66
+--------------
+SELECT * FROM products
+--------------
+
+prodid	descrip	costper	qtyavail
+11	Bike	150	200
+12	Socks	2	100
+23	Jordans	88.12	500
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM agents
+--------------
+
+agentid	fname	lname	cityworks	commiss
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+73	Jonathan	Timbrell	Ottawa	99
+99	Hugh	Grant	Springfield	16
