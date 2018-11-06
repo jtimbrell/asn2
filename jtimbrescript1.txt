@@ -16,10 +16,10 @@ USE jtimbreassign2db;
 -- creating permissions for TA to give me a 200%
 
 GRANT USAGE ON *.* TO 'ta'@'localhost';
-DROP USER 'ta'@localhost'
-CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
-GRANT ALL PRIVILEGES ON jtimbreassign2db
-FLUSH PRIVILEGES
+DROP USER 'ta'@localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON jtimbreassign2db;
+FLUSH PRIVILEGES;
 
 SHOW TABLES; 
 
