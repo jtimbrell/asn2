@@ -1,0 +1,56 @@
+ERROR 1050 (42S01) at line 14: Table 'firstview' already exists
+--------------
+SELECT * FROM agents
+--------------
+
+agentid	fname	lname	cityworks	commiss
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+73	Jonathan	Timbrell	Ottawa	99
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM products
+--------------
+
+prodid	descrip	costper	qtyavail
+11	Bike	150	200
+12	Socks	2	100
+23	Jordans	88.12	500
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM purchases
+--------------
+
+qty	produid	custid
+20	99	21
+14	12	21
+10	66	21
+5	99	31
+5	12	31
+5	78	31
+5	66	31
+2	66	15
+2	78	15
+19	66	14
+--------------
+SELECT * FROM customers
+--------------
+
+custid	fname	lname	cityin	phoneno	agid
+10	Barney	Rubble	Boston	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Wonder	Woman	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Boston	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	66
+--------------
+CREATE VIEW firstview AS (SELECT c.fname as 'Cust First Name', c.lname as 'Cust Last Name', p.descrip as 'Product Description', pur.qty as 'Purchase Quantity', p.costper as 'Price', pur.qty*p.costper as 'GrossCost' FROM customers as c, products as p, purchases as pur WHERE p.prodid = pur.produid AND c.custid = pur.custid ORDER BY(c.lname))
+--------------
+
