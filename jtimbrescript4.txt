@@ -1,0 +1,33 @@
+USE jtimbreassign2db;
+
+-- Showing all tables in db before deletions and views
+
+SELECT * FROM agents;
+SELECT * FROM products;
+SELECT * FROM purchases;
+SELECT * FROM customers;
+
+-- View that shows customers fName, lName,
+-- Description of products they bought, price of product, and total cost for that qty of item
+-- View is ordered by name
+
+CREATE VIEW firstview AS (SELECT c.fname as 'Cust First Name', c.lname as 'Cust Last Name', p.descrip as 'Product Description', pur.qty as 'Purchase Quantity', p.costper as 'Price', pur.qty*p.costper as 'GrossCost' FROM customers as c, products as p, purchases as pur WHERE p.prodid = pur.produid AND c.custid = pur.custid ORDER BY(c.lname));
+
+-- Look at the view
+
+SELECT * FROM firstview;
+
+-- Look at the view where gross purchase cost is greater than $100
+
+SELECT * FROM firstview WHERE GrossCost > 100;
+
+-- Delete from Products my product and show change
+
+DELETE FROM products WHERE descrip = 'Jordans';
+SELECT * FROM products;
+
+-- Delete the agents from springfield
+
+DELETE FROM agents WHERE cityworks = "Springfield";
+
+-- The row for our Springfield Agent, Hugh Grant, was not deleted because he has a customer that is dependent on him. There is a foreign key that prevents the deletion, as our 'Agent' serves as the parent, and cannot be deleted as a result 
