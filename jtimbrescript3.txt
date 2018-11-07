@@ -20,7 +20,7 @@ SELECT * FROM agents ORDER BY cityworks;
 -- Query 4
 -- Fname and Lname of all springfielders
 
-SELECT fname, lname FROM customer WHERE cityin = 'Springfield';
+SELECT fname, lname FROM customers WHERE cityin = 'Springfield';
 
 -- Query 5
 -- Lname of Regis's customers
