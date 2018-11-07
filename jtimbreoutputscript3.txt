@@ -1,0 +1,133 @@
+--------------
+SELECT descrip FROM products
+--------------
+
+descrip
+Bike
+Socks
+Jordans
+Elbow pads
+Knee Pads
+Roller Blades
+Helmet
+--------------
+SELECT DISTINCT(cityin) FROM customers
+--------------
+
+cityin
+Boston
+Springfield
+Kypto
+Providence
+--------------
+SELECT * FROM agents ORDER BY cityworks
+--------------
+
+agentid	fname	lname	cityworks	commiss
+33	David	Letterman	Bedrock	100
+11	Regis	Philbin	Boston	33
+22	Courtney	Cox	New York	25
+12	Rosie	Cox	Ottawa	50
+66	Rosie	ODonnell	Ottawa	100
+73	Jonathan	Timbrell	Ottawa	99
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT fname, lname FROM customers WHERE cityin = 'Springfield'
+--------------
+
+fname	lname
+Monty	Burns
+Homer	Simpson
+Sideshow	Bob
+--------------
+SELECT lname as 'Last Name' FROM customers WHERE agid = (SELECT agentid FROM agents WHERE fname = 'Regis')
+--------------
+
+Last Name
+Rubble
+Flintstone
+--------------
+SELECT descrip FROM products WHERE descrip LIKE '%pad%' OR descrip LIKE '%Pad%'
+--------------
+
+descrip
+Elbow pads
+Knee Pads
+--------------
+SELECT c.lname, pr.descrip, p.qty FROM customers AS c INNER JOIN purchases AS p ON p.custid = c.custid INNER JOIN products AS pr ON pr.prodid = p.produid
+--------------
+
+lname	descrip	qty
+Griffens	Elbow pads	19
+Flintstone	Elbow pads	2
+Flintstone	Knee Pads	2
+Simpson	Helmet	20
+Simpson	Socks	14
+Simpson	Elbow pads	10
+Bob	Helmet	5
+Bob	Socks	5
+Bob	Knee Pads	5
+Bob	Elbow pads	5
+--------------
+SELECT SUM(qty) as "Homers total number of purchases" FROM purchases WHERE custid = (SELECT custid FROM customers WHERE fname = 'Homer')
+--------------
+
+Homers total number of purchases
+44
+--------------
+SELECT c.fname, c.lname, SUM(p.qty) FROM purchases AS p INNER JOIN customers AS c ON c.custid = p.custid
+GROUP BY c.custid
+--------------
+
+fname	lname	SUM(p.qty)
+Peter	Griffens	19
+Fred	Flintstone	4
+Homer	Simpson	44
+Sideshow	Bob	20
+--------------
+SELECT descrip, qtyavail FROM products WHERE prodid NOT IN(SELECT produid FROM purchases)
+--------------
+
+descrip	qtyavail
+Bike	200
+Jordans	500
+Roller Blades	89
+--------------
+SELECT descrip, qtyavail FROM products WHERE prodid NOT IN(SELECT produid FROM purchases WHERE custid = (SELECT custid FROM customers WHERE fname = 'Fred' AND lname = 'Flintstone'))
+--------------
+
+descrip	qtyavail
+Bike	200
+Socks	100
+Jordans	500
+Roller Blades	89
+Helmet	30
+--------------
+SELECT a.fname AS agentFirstName, a.lname AS agentLastName, c.fname AS customerFirstName, c.lname AS customerLastName FROM agents AS a INNER JOIN customers as c ON c.agid = a.agentid WHERE c.cityin = a.cityworks
+--------------
+
+agentFirstName	agentLastName	customerFirstName	customerLastName
+Regis	Philbin	Barney	Rubble
+Regis	Philbin	Fred	Flintstone
+Hugh	Grant	Monty	Burns
+Hugh	Grant	Homer	Simpson
+--------------
+SELECT SUM(p.qty) AS 'Number of Total Knee Pads Bought' FROM purchases AS p
+WHERE p.produid IN (SELECT prodid FROM products WHERE descrip = 'Knee Pads')
+--------------
+
+Number of Total Knee Pads Bought
+7
+--------------
+SELECT prod.descrip FROM products AS prod INNER JOIN purchases AS pu ON pu.produid = prod.prodid INNER JOIN customers AS c ON c.custid = pu.custid GROUP BY prod.descrip HAVING COUNT(DISTINCT c.custid) > 3
+--------------
+
+descrip
+Elbow pads
+--------------
+SELECT a.fname as 'Agent First Name', a.lname as 'Agent Last Name' FROM agents as a, customers as c, products as p, purchases as pu WHERE a.agentid = c.agid AND c.custid = pu.custid AND pu.produid = p.prodid AND p.descrip = 'Knee Pads'
+--------------
+
+Agent First Name	Agent Last Name
+Regis	Philbin
+Rosie	ODonnell
