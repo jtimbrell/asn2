@@ -1,0 +1,86 @@
+-- File 3
+
+USE jtimbreassign2db;
+
+-- Query 1
+-- Get description from all products
+
+SELECT descrip FROM products;
+
+-- Query 2
+-- Get all of the customer cities w/o repeats!
+
+SELECT DISTINCT(cityin) FROM customers;
+
+-- Query 3
+-- All info from agents, sorted by city
+
+SELECT * FROM agents ORDER BY cityworks;
+
+-- Query 4
+-- Fname and Lname of all springfielders
+
+SELECT fname, lname FROM customer WHERE cityin = 'Springfield';
+
+-- Query 5
+-- Lname of Regis's customers
+
+SELECT lname as 'Last Name' FROM customers WHERE agid = (SELECT agentid FROM agents WHERE fname = 'Regis');
+
+-- Query 6
+-- Products matching 'pad'/'Pad'
+
+SELECT descrip FROM products WHERE descrip LIKE '%pad%' OR descrip LIKE '%Pad%';
+
+-- Query 7
+-- Names of customers, Products desc, and qty of purchases
+
+SELECT c.lname, pr.descrip, p.qty FROM customers AS c INNER JOIN purchases AS p ON p.custid = c.custid INNER JOIN products AS pr ON pr.prodid = p.produid;
+
+-- Query 8
+-- Homer's number of purchases
+
+SELECT SUM(qty) as "Homers total number of purchases" FROM purchases WHERE custid = (SELECT custid FROM customers WHERE fname = 'Homer');
+
+
+-- Query 9
+-- For purchasing customers, total # products purchased, fname and lname, and total no. purchases
+
+SELECT c.fname, c.lname, SUM(p.qty) FROM purchases AS p INNER JOIN customers AS c ON c.custid = p.custid
+GROUP BY c.custid;
+
+-- Query 10
+-- Description and quantity available of items never been purchased
+
+
+SELECT descrip, qtyavail FROM products WHERE prodid NOT IN(SELECT produid FROM purchases);
+
+
+-- Query 11
+-- Descript and qty avail of items NOT purchased by Fred Flinstone
+
+SELECT descrip, qtyavail FROM products WHERE prodid NOT IN(SELECT produid FROM purchases WHERE custid = (SELECT custid FROM customers WHERE fname = 'Fred' AND lname = 'Flintstone'));
+
+
+-- Query 12
+-- Fname, Lname of agent and customer if they're in the same and deal with eachother
+
+SELECT a.fname AS agentFirstName, a.lname AS agentLastName, c.fname AS customerFirstName, c.lname AS customerLastName FROM agents AS a INNER JOIN customers as c ON c.agid = a.agentid WHERE c.cityin = a.cityworks;
+
+-- Query 13
+-- Total no of knee pads purchased - with a nice title
+
+SELECT SUM(p.qty) AS 'Number of Total Knee Pads Bought' FROM purchases AS p
+WHERE p.produid IN (SELECT prodid FROM products WHERE descrip = 'Knee Pads');
+
+-- Query 14
+-- Description from products purchased by more than 3 customers
+
+SELECT prod.descrip FROM products AS prod INNER JOIN purchases AS pu ON pu.produid = prod.prodid INNER JOIN customers AS c ON c.custid = pu.custid GROUP BY prod.descrip HAVING COUNT(DISTINCT c.custid) > 3;
+
+-- Query 15
+-- Fname, lname of agents who deal with customers that have purchased knee pads
+
+SELECT a.fname as 'Agent First Name', a.lname as 'Agent Last Name' FROM agents as a, customers as c, products as p, purchases as pu WHERE a.agentid = c.agid AND c.custid = pu.custid AND pu.produid = p.prodid AND p.descrip = 'Knee Pads';
+
+-- DONE script3
